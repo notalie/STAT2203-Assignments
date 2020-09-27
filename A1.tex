@@ -1,0 +1,160 @@
+\documentclass[oneside, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[hypertexnames=false]{hyperref} 
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+\urlstyle{same}
+\usepackage{textcomp}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{soul}
+\usepackage{forest}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\usepackage{amssymb}
+
+% Set spacing (i set it to 1.2x)
+\renewcommand{\baselinestretch}{1}
+% Indentation (set this to zero for normal prose)
+\setlength{\parindent}{0em}
+% Line breaking (spacing between paragraphs)
+\setlength{\parskip}{0.5em}
+
+% Use the whole page
+\usepackage{geometry}
+% Extra math glyphs
+\usepackage{amsmath}
+% Proper enumerate spacing
+\usepackage{enumitem}
+% More pleasing screen fonts
+\usepackage{lmodern}
+% Fancy headers
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{algpseudocode}
+% Allows absolute positioning of images
+\usepackage{float}
+% \usepackage[section]{placeins}
+% Set no separation
+\setlist{noitemsep}
+% Set margins to reasonable
+\geometry{margin=2.5cm}
+% Sets graphics path
+\graphicspath{ {./images/} }
+% Sets up fancy headers
+
+\addto\captionsenglish{
+}
+
+
+\usepackage{listings}
+\usepackage{color}
+
+\pagestyle{plain}
+\NewEnviron{myequation}{%
+\begin{equation}
+\scalebox{1.5}{$\BODY$}
+\end{equation}
+}
+
+\begin{document}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{s4530974 - Homework Assignment 1}
+\rhead{STAT2203}
+
+\newpage
+
+\setcounter{secnumdepth}{-1}
+\section{Question 1}
+
+\textbf{1a)} The probability of $F_Y(y) = P(Y \leq y)$ is and since $Y = log(X - 1)$. 
+
+The rule $ln(N) = x \equiv N = e^x$ is also important to note.
+
+\begin{equation}
+\begin{split}
+F_Y(y) = P(Y\leq y) \\
+= P(log(X-1)\leq y) \\
+= P(log(X-1)\leq y) \\
+= P(X - 1\leq e^y) \\
+= P(X \leq e^y + 1) \\
+\implies 
+F_Y(y) = P(X \leq e^y + 1)
+\end{split}
+\end{equation}
+To find the function of Y ($f_y(y)$), integrate by the bounds of the X which are $e^y + 1$ and 2.
+
+\begin{equation}
+\begin{split}
+= \int_{2}^{e^y + 1} \frac{2}{x^2} dx \\
+= \left[  -\frac{2}{x} \right]^{e^y + 1}_2 \\
+= -\frac{2}{1 - e^y} + \frac{2}{2} \\
+= -\frac{2}{1 - e^y} + 1 \\
+\implies F_Y(y) = -\frac{2}{1 - e^y} + 1
+\end{split}
+\end{equation}
+
+Since we now have the function of Y, we need to find the pdf of Y by differentiating $F_Y(y)$.
+
+\begin{equation}
+    \begin{split}
+    \frac{\partial }{\partial y} F_Y(y) = \frac{\partial }{\partial y}-\frac{2}{1 - e^y} + 1 \\
+    \left(v = (1 - e^y), v' = -e^y, u = 2, u' = 0  \right)\\
+    = -\frac{2e^y}{\left(1 -e^y \right)^2} \\\\
+    \implies f_y(y) = -\frac{2e^y}{\left(1 -e^y \right)^2}, x > 2 \\\\
+        f_y(y)= 
+    \begin{cases}
+        = -\frac{2e^y}{\left(1 -e^y \right)^2},& \text{if } y\geq 2\\
+        0,              & \text{otherwise}
+    \end{cases}
+    \end{split}
+\end{equation}
+
+\textbf{1b)} To find the quartile function. Find the inverse of the cdf. To do this, switch x and q and solve for q.
+
+\begin{equation}
+    \begin{split}
+    F_Y(y) = -\frac{2}{1 - e^y} + 1 \\
+    x = -\frac{2}{1 - e^q} + 1 \\
+    x - 1 = -\frac{2}{1 - e^q} \\ 
+    1 - e^q = -\frac{2}{x - 1} \\ 
+    e^q - 1 = \frac{2}{x - 1} \\ 
+    e^q = \frac{2}{x - 1} + 1 \\ 
+    q = \ln{\left(\frac{2}{x - 1} + 1\right)} \\ 
+    \implies qy(y) = \ln{\left(\frac{2}{x - 1} + 1\right)}
+    \end{split}
+\end{equation} 
+\textbf{1c)} Randomised code for the pdf function of $f_X(x)$:
+
+\end{document}
