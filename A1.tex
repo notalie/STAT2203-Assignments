@@ -145,14 +145,15 @@ Since we now have the function of Y, we need to find the pdf of Y by differentia
 
 \begin{equation}
     \begin{split}
-    F_Y(y) = -\frac{2}{1 - e^y} + 1 \\
+    F_Y(y) = -\frac{2}{1 - e^y} + 1 = q \\
     x = -\frac{2}{1 - e^q} + 1 \\
     x - 1 = -\frac{2}{1 - e^q} \\ 
     1 - e^q = -\frac{2}{x - 1} \\ 
     e^q - 1 = \frac{2}{x - 1} \\ 
     e^q = \frac{2}{x - 1} + 1 \\ 
-    q = \ln{\left(\frac{2}{x - 1} + 1\right)} \\ 
-    \implies qy(y) = \ln{\left(\frac{2}{x - 1} + 1\right)}
+    q = \ln{\left(\frac{2}{x - 1} + \frac{x - 1}{x - 1}\right)} \\ 
+    q = \ln{\left(\frac{x + 1}{x - 1}\right)} \\ 
+    \implies qy(y) = \ln{\left(\frac{x + 1}{x - 1}\right)}
     \end{split}
 \end{equation} 
 \textbf{1c)} Randomised code for the pdf function of $f_X(x)$:
