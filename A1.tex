@@ -157,5 +157,95 @@ Since we now have the function of Y, we need to find the pdf of Y by differentia
     \end{split}
 \end{equation} 
 \textbf{1c)} Randomised code for the pdf function of $f_X(x)$:
+    \begin{lstlisting}[language=R]
+        n = 250
+        u = runif(n)
+        X = log(abs((u+1)/(u - 1)))
+        hist(X,freq=FALSE)
+        x = seq(from=0,to=1,length=250)
+        lines(x, 2/x^2,lwd=2)
+    \end{lstlisting}
+
+\section{Question 2}
+
+\textbf{2a)} Expression that the system is working at time $t$:\\
+- Probability density function of components combined can be expressed as a Poisson distribution: $\frac{\lambda ^x}{x!} e^{- \lambda}$ \\
+- Since $\frac{1}{\lambda}$ = mean and mean = 1, $1 = \frac{1}{\lambda}$, $1 = \frac{1}{1}, \lambda = 1$ \\ 
+- Since the pdf of the Poisson function does not factor in time, we multiply all $\lambda$ by $t$ to get the following function:
+\begin{equation}
+    \begin{split}
+        F_X(x) = \frac{( \lambda t )^x}{x!} e^{- \lambda t}, \lambda = 1\\ 
+        F_X(x \geq 2) = \frac{t^x}{x!} e^{-t}, \\
+        F_X(2) = \frac{t^2}{2!} e^{-t} \\
+        F_X(3) = \frac{t^3}{3!} e^{-t} \\
+        F_X(2) + F_X(3) = \frac{t^2}{2!} e^{-t} + \frac{t^3}{3!} e^{-t} \\
+        F_X(x \geq 2) = \frac{t^2}{2!} e^{-t} + \frac{t^3}{3!} e^{-t} 
+    \end{split}
+\end{equation}
+which is the function for time to failure for the system.
+
+\textbf{2b)} Since we know that $F_X(x \geq 2) = \frac{t^2}{2!} e^{-t} + \frac{t^3}{3!} e^{-t}$ \\
+- We can find the mean value of the function with $\int _{-\infty}^{\infty} t F_X(x \geq 2)$ \\
+- And find the $EX^2$ with $\int _{-\infty}^{\infty} t^2 F_X(x \geq 2)$ \\ 
+
+First find $\int _{-\infty}^{\infty} t \left(\frac{t^2}{2!} e^{-t} + \frac{t^3}{3!} e^{-t}\right)$ 
+- Since the upper bounds are defined as 3 with lower bound 2 ($X \geq 2$), we can sub these into the integral bounds.
+\begin{equation}
+    \begin{split}
+        \int _{2}^{3} t \left( \frac{t^2}{2!} e^{-t} + \frac{(t)^3}{3!} e^{-t} \right) \\ \\
+        \int _{2}^{3} \frac{t^3}{2!} e^{-t} + \frac{t^4}{3!} e^{-t} \\ \\ 
+        \int _{2}^{3} \frac{t^3 e^{-t}}{2} + \frac{t^4 e^{-t}}{6} \\ \\ 
+        \int _{2}^{3} \frac{t^3 e^{-t}}{2} + \int _{2}^{3} \frac{t^4 e^{-t}}{6} \\ \\ 
+        \frac{1}{2} \int _{2}^{3} t^3 e^{-t} + \frac{1}{6} \int _{2}^{3} t^4 e^{-t}
+    \end{split}
+\end{equation}
+Solving the first integral:
+\begin{equation}
+    \begin{split}
+        \frac{1}{2} \int _{2}^{3} t^3 e^{-t} \\ 
+        u = -t \\
+        \frac{1}{2} \int e^u u^3du \\ 
+        u = u^3, v' = e^u\\
+        u^3 e^u - \int 3 u^2 e^u du \\ 
+        u = -t \\
+        \left(\frac{1}{2}\left(-t\right)^3e^{-t}-3\left(\left(-t\right)^2e^{-t}-2\left(e^{-t}\left(-t\right)-e^{-t}\right)\right)\right)\\
+        \left[\left(\frac{1}{2}\left(-t\right)^3e^{-t}-3\left(\left(-t\right)^2e^{-t}-2\left(e^{-t}\left(-t\right)-e^{-t}\right)\right)\right) \right]^3_2 \\
+        = \frac{1}{2} \left()\frac{38}{e^2} - \frac{78}{e^3}\right) \\
+        = -\frac{-38e+78}{2e^3}
+    \end{split}
+\end{equation}
+Solving the second integral:
+\begin{equation}
+    \begin{split}
+        \frac{1}{6} \int _{2}^{3} t^4 e^{-t} \\
+        u=t^4, v'=e^{-t} \\
+        \frac{1}{6} \left(-e^{-t}t^4 - \int -4e^{-t}t^3dt\right) \\
+        \frac{1}{6} \left(-e^{-t}t^4 + 4\left(\left(-t\right)^3e^{-t}-3\left(\left(-t\right)^2e^{-t}-2\left(e^{-t}\left(-t\right)-e^{-t}\right)\right)\right)\right) \\
+        \left[-e^{-t}t^4+4\left(-e^{-t}t^3-3\left(e^{-t}t^2-2\left(-e^{-t}t-e^{-t}\right)\right)\right)\right]^3_2 \\
+         = \frac{1}{6}\left(-\frac{393}{e^3}+\frac{168}{e^2}\right)
+         = \frac{-393+168e}{6e^3}
+    \end{split}
+\end{equation}
+Adding both together to get the mean
+\begin{equation}
+-\frac{-38e+78}{2e^3}+\frac{-393+168e}{6e^3} = \frac{282e-627}{6e^3}
+\end{equation}
+Mean  = $\frac{282e-627}{6e^3} = 1.158$
+
+- Variance = $E[X^2] - (E[X])^2$ \\ \\
+To find the variance, a similar process was taken to find $E[X^2]$ so that the variance could be \\
+calculated. This formula was that of $\int _{-\infty}^{\infty} t^2 \left(\frac{t^2}{2!} e^{-t} + \frac{t^3}{3!} e^{-t}\right)$ and gave the result: \\
+$E[X^2] = \frac{1376e-3387}{6e^3}$. It is also worth noting that $E[X]$ is equivilent to the mean or expected value that was just calculated.
+
+The variance could then be calculated which looked like the following:
+
+\begin{equation}
+    \frac{1376e-3387}{6e^3} - (\frac{282e-627}{6e^3})^2 \\
+    = 1.591
+\end{equation}
+Var($F_X(x)$)= 1.591
+
+\textbf{1c)} 
+
 
 \end{document}
