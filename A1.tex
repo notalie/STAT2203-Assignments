@@ -54,7 +54,6 @@
 \addto\captionsenglish{
 }
 
-
 \usepackage{listings}
 \usepackage{color}
 
@@ -98,154 +97,265 @@
 \setcounter{secnumdepth}{-1}
 \section{Question 1}
 
-\textbf{1a)} The probability of $F_Y(y) = P(Y \leq y)$ is and since $Y = log(X - 1)$. 
+\textbf{1a)} The probability of $f_Y(y) = P(Y \leq y)$ is and since $Y = log(X - 1)$. 
 
 The rule $ln(N) = x \equiv N = e^x$ is also important to note.
 
 \begin{equation}
 \begin{split}
-F_Y(y) = P(Y\leq y) \\
+f_Y(y) = P(Y\leq y) \\
 = P(log(X-1)\leq y) \\
 = P(log(X-1)\leq y) \\
 = P(X - 1\leq e^y) \\
 = P(X \leq e^y + 1) \\
 \implies 
-F_Y(y) = P(X \leq e^y + 1)
+f_Y(y) = P(X \leq e^y + 1)
 \end{split}
 \end{equation}
-To find the function of Y ($f_y(y)$), integrate by the bounds of the X which are $e^y + 1$ and 2.
+
+Sub this found X value into the existing x function to get:
+
+$$\frac{2}{(e^y + 1)^2}$$
+
+Then multiply this function by the derivative of X which is $\frac{d}{dy} (e^y + 1) = e^y$ to get:
+
+$$\frac{2e^y}{(e^y + 1)^2}$$
+
+To add bounds to the cases, sub in $x = 2$ into $Y > log(X - 1)$ which gives $Y > ln(1), Y > 0$
 
 \begin{equation}
 \begin{split}
-= \int_{2}^{e^y + 1} \frac{2}{x^2} dx \\
-= \left[  -\frac{2}{x} \right]^{e^y + 1}_2 \\
-= -\frac{2}{1 - e^y} + \frac{2}{2} \\
-= -\frac{2}{1 - e^y} + 1 \\
-\implies F_Y(y) = -\frac{2}{1 - e^y} + 1
+    f_y(y) = \begin{cases} 
+        \frac{2e^y}{(e^y + 1)^2} & y > 0 \\ 
+        0 & otherwise
+    \end{cases}
 \end{split}
 \end{equation}
 
-Since we now have the function of Y, we need to find the pdf of Y by differentiating $F_Y(y)$.
+
+
+\textbf{1b)} To find the quartile function. We need to find the we need to integrate the pdf we just got to get Fx(x). 
 
 \begin{equation}
     \begin{split}
-    \frac{\partial }{\partial y} F_Y(y) = \frac{\partial }{\partial y}-\frac{2}{1 - e^y} + 1 \\
-    \left(v = (1 - e^y), v' = -e^y, u = 2, u' = 0  \right)\\
-    = -\frac{2e^y}{\left(1 -e^y \right)^2} \\\\
-    \implies f_y(y) = -\frac{2e^y}{\left(1 -e^y \right)^2}, x > 2 \\\\
-        f_y(y)= 
-    \begin{cases}
-        = -\frac{2e^y}{\left(1 -e^y \right)^2},& \text{if } y\geq 2\\
-        0,              & \text{otherwise}
-    \end{cases}
-    \end{split}
-\end{equation}
-
-\textbf{1b)} To find the quartile function. Find the inverse of the cdf. To do this, switch x and q and solve for q.
-
-\begin{equation}
-    \begin{split}
-    F_Y(y) = -\frac{2}{1 - e^y} + 1 = q \\
-    x = -\frac{2}{1 - e^q} + 1 \\
-    x - 1 = -\frac{2}{1 - e^q} \\ 
-    1 - e^q = -\frac{2}{x - 1} \\ 
-    e^q - 1 = \frac{2}{x - 1} \\ 
-    e^q = \frac{2}{x - 1} + 1 \\ 
-    q = \ln{\left(\frac{2}{x - 1} + \frac{x - 1}{x - 1}\right)} \\ 
-    q = \ln{\left(\frac{x + 1}{x - 1}\right)} \\ 
-    \implies qy(y) = \ln{\left(\frac{x + 1}{x - 1}\right)}
+    \int^2_x F_X(x) = \int \frac{2}{x^2} \\
+    \int^2_x \frac{2}{x^2} = \left[ - \frac{2}{x} \right]_x^2 \\
+    = - \frac{2}{x} - -\frac{2}{2} \\
+    = 1 - \frac{2}{x} \\
+    \text{Switch q and x to get the } \\ 
+    x = - \frac{2}{q} + 1 \\
+    x - 1 =  - \frac{2}{q} \\
+    q (x - 1) = -2 \\
+    q = - \frac{2}{x - 1} \\
+    \implies qx(x) = - \frac{2}{x - 1} \\
     \end{split}
 \end{equation} 
 \textbf{1c)} Randomised code for the pdf function of $f_X(x)$:
     \begin{lstlisting}[language=R]
-        n = 250
-        u = runif(n)
-        X = log(abs((u+1)/(u - 1)))
-        hist(X,freq=FALSE)
-        x = seq(from=0,to=1,length=250)
-        lines(x, 2/x^2,lwd=2)
+        pdfFunc <- function() {
+            n = runif(1, 0, 10)
+            if (n <= 2) {
+                print(0)
+            } else {
+                print(2/(n^2))
+            }
+        }        
     \end{lstlisting}
-
 \section{Question 2}
 
 \textbf{2a)} Expression that the system is working at time $t$:\\
-- Probability density function of components combined can be expressed as a Poisson distribution: $\frac{\lambda ^x}{x!} e^{- \lambda}$ \\
-- Since $\frac{1}{\lambda}$ = mean and mean = 1, $1 = \frac{1}{\lambda}$, $1 = \frac{1}{1}, \lambda = 1$ \\ 
-- Since the pdf of the Poisson function does not factor in time, we multiply all $\lambda$ by $t$ to get the following function:
+- Probability density function of components can be expressed as $X_i \sim Exp(1)$ for $i = 1,2,3$ \\
+- $1 - (1 - P(X \leq t))$ = probability that the system is not working
+
 \begin{equation}
     \begin{split}
-        F_X(x) = \frac{( \lambda t )^x}{x!} e^{- \lambda t}, \lambda = 1\\ 
-        F_X(x \geq 2) = \frac{t^x}{x!} e^{-t}, \\
-        F_X(2) = \frac{t^2}{2!} e^{-t} \\
-        F_X(3) = \frac{t^3}{3!} e^{-t} \\
-        F_X(2) + F_X(3) = \frac{t^2}{2!} e^{-t} + \frac{t^3}{3!} e^{-t} \\
-        F_X(x \geq 2) = \frac{t^2}{2!} e^{-t} + \frac{t^3}{3!} e^{-t} 
+        P(X_i \leq t) = (P(X_1) \cap P(X_2) \cup (P(X_1) \cap P(X_2)) \cup (P(X_2) \cap P(X_3)) - (P(X_1) \cap P(X_2) \cap P(X_3))\\
+        \text{Due to independence} \\ 
+        P(X_i \leq t) = (e^{-t} * e^{-t}) - (e^{-t} * e^{-t}) + (e^{-t} * e^{-t}) + (e^{-t} * e^{-t} * e^{-t}) \\
+        P(X_i \leq t) = e^{-2t} + e^{-2t} + e^{-2t} - e^{-3t} \\ 
+        P(X_i \leq t) = 3e^{-2t} - e^{-3t} \\ 
+        P(\text{System not working}) = 1 - (1 - (3e^{-2t} - e^{-3t})) \\
+        P(\text{System not working}) = 3e^{-2t}-e^{-3t}
     \end{split}
 \end{equation}
-which is the function for time to failure for the system.
 
-\textbf{2b)} Since we know that $F_X(x \geq 2) = \frac{t^2}{2!} e^{-t} + \frac{t^3}{3!} e^{-t}$ \\
-- We can find the mean value of the function with $\int _{-\infty}^{\infty} t F_X(x \geq 2)$ \\
-- And find the $EX^2$ with $\int _{-\infty}^{\infty} t^2 F_X(x \geq 2)$ \\ 
+\textbf{2b)} To find the mean/expected value, integrate the value like so $\int _{0}^{\infty} t (3e^{-2t}-e^{-3t}) dt$.
 
-First find $\int _{-\infty}^{\infty} t \left(\frac{t^2}{2!} e^{-t} + \frac{t^3}{3!} e^{-t}\right)$ 
-- Since the upper bounds are defined as 3 with lower bound 2 ($X \geq 2$), we can sub these into the integral bounds.
 \begin{equation}
     \begin{split}
-        \int _{2}^{3} t \left( \frac{t^2}{2!} e^{-t} + \frac{(t)^3}{3!} e^{-t} \right) \\ \\
-        \int _{2}^{3} \frac{t^3}{2!} e^{-t} + \frac{t^4}{3!} e^{-t} \\ \\ 
-        \int _{2}^{3} \frac{t^3 e^{-t}}{2} + \frac{t^4 e^{-t}}{6} \\ \\ 
-        \int _{2}^{3} \frac{t^3 e^{-t}}{2} + \int _{2}^{3} \frac{t^4 e^{-t}}{6} \\ \\ 
-        \frac{1}{2} \int _{2}^{3} t^3 e^{-t} + \frac{1}{6} \int _{2}^{3} t^4 e^{-t}
+        \int _{0}^{\infty} t (3e^{-2t}-e^{-3t}) dt\\ 
+        \text{Can split up two functions} \\
+        \int _{0}^{\infty} 3te^{-2t} dt - \int _{0}^{2} te^{-3t} dt\\
+        \text{First integral} \\
+        \int _{0}^{\infty} 3te^{-2t} dt \\
+        u = -2t \\
+        3 \int \frac{e^uu}{4} du \\
+        3 \frac{1}{4} \int e^uudu \\
+        \text{Apply integration by parts}\\
+        u=u, v'=e^u \\
+        \frac{3}{4}\left(e^uu-\int e^udu\right) \\
+        \frac{3}{4}\left(e^uu-e^u\right), \text{Sub back u} \\
+        \frac{3}{4}\left(e^{-2t}\left(-2t\right)-e^{-2t}\right) \\
+        \int 3te^{-2t}dt = \frac{3}{4}\left(-2e^{-2t}t-e^{-2t}\right) \\ % Integral 1 answer
+        \text{Second integral} \\
+        -\int \:te^{-3t}dt\\
+        -\int \frac{e^uu}{9}du\\
+        -\frac{1}{9}\cdot \int \:e^uudu \\
+        \text{Apply integration by parts}\\
+        u=u,\:v'=e^u \\
+        -\frac{1}{9}\left(e^uu-\int \:e^udu\right) \\
+        -\frac{1}{9}\left(e^uu-e^u\right) \\
+        \text{Sub back u} \\
+        -\frac{1}{9}\left(e^{-3t}\left(-3t\right)-e^{-3t}\right) \\
+        -\int \:te^{-3t}dt = -\frac{1}{9}\left(-3e^{-3t}t-e^{-3t}\right) \\% Integral 2 answer
+        \text{Applying the Sum Rule:}\\
+        \left[\frac{3}{4}\left(-2e^{-2t}t-e^{-2t}\right)-\frac{1}{9}\left(-3e^{-3t}t-e^{-3t}\right)\right]^{\infty}_{0} \\
+        = 0 - \left(\frac{3}{4}\left(-2e^{-2 \:0} \:0-e^{-2 \:0}\right)-\frac{1}{9}\left(-3e^{-3 \:0}\cdot \:0-e^{-3 \:0}\right)\right) \\
+        = 0 - \frac{3}{4}\left(-2e^{-2 \:0} \:0-e^{-2 \:0}\right) - \frac{1}{9}\left(-3e^{-3 \:0} \:0-e^{-3 \:0}\right) \\ 
+        = -\frac{3}{4} + \frac{1}{9} = \frac{23}{36} = \text{Mean}
     \end{split}
 \end{equation}
-Solving the first integral:
+
+To calculate the variance, I took similar steps to calculate $E[X^2]$. \\
+$E[X^2]$ was calculated to be: $\frac{73}{108}$. 
+
+To find the variance I used the formula $E[X^2] - (E[X])^2$\\
+$\frac{73}{108} - (\frac{23}{36})^2 = \frac{347}{1296} = 0.26774 = \text{Variance}$
+
+\textbf{2c)} Find $P(X_1 | P(X_i \geq t))$\\ \\
+$P(A|B) = \frac{A \cap B}{B}$ where A is component 1 working and B is the system is working.
+
+$$ = \frac{1-\left(2e^{-2t}-e^{-3t}\right)}{1-\left(3e^{-2t}-e^{-3t}\right)}$$
+
+Then find the limit of $t \to \infty$
+
+$$ = \lim _{t\to \infty }\left(\frac{1-\left(2e^{-2t}-e^{-3t}\right)}{1-\left(3e^{-2t}-e^{-3t}\right)}\right)$$
+
+First remove the constants
+
+$$ = \frac{2e^{-2t}+e^{-3t}}{-3e^{-2t}+e^{-3t}} $$
+
+Divide by the highest common denominator which is $e^{-2t}$ and gives:
+
+$$\lim _{t\to \infty }\left(\frac{2+\frac{1}{e^t}}{3+\frac{1}{e^t}}\right)$$
+
+Substituting the limit, and the fact that $\lim _{t\to \infty }\left(e^t\right) \to \infty $ and $\frac{n}{\infty} = 0$
+
+$$ = \frac{2}{3}$$
+
+$$\implies \lim _{t\to \infty }\left(\frac{1-\left(2e^{-2t}-e^{-3t}\right)}{1-\left(3e^{-2t}-e^{-3t}\right)}\right) = \frac{2}{3}$$
+
+\textbf{2d)}
+
+
+
+\newpage
+\input{q3.tex}
+
+\section{Question 4}
+- Since we know that 
+
 \begin{equation}
     \begin{split}
-        \frac{1}{2} \int _{2}^{3} t^3 e^{-t} \\ 
-        u = -t \\
-        \frac{1}{2} \int e^u u^3du \\ 
-        u = u^3, v' = e^u\\
-        u^3 e^u - \int 3 u^2 e^u du \\ 
-        u = -t \\
-        \left(\frac{1}{2}\left(-t\right)^3e^{-t}-3\left(\left(-t\right)^2e^{-t}-2\left(e^{-t}\left(-t\right)-e^{-t}\right)\right)\right)\\
-        \left[\left(\frac{1}{2}\left(-t\right)^3e^{-t}-3\left(\left(-t\right)^2e^{-t}-2\left(e^{-t}\left(-t\right)-e^{-t}\right)\right)\right) \right]^3_2 \\
-        = \frac{1}{2} \left()\frac{38}{e^2} - \frac{78}{e^3}\right) \\
-        = -\frac{-38e+78}{2e^3}
+        cov(Z) = \begin{bmatrix}
+            1 & 0\\
+            0 & 1
+        \end{bmatrix}, \text{mean} = E(Z) = 0 \\
+        \text{Find vector a and B such that:} \\
+        Y = a + BZ \text{ where:} \\ \\
+        \mu =  \begin{bmatrix}
+            3 \\
+            -2
+        \end{bmatrix}, \Sigma =  \begin{bmatrix}
+            5 & 13 \\
+            13 & 41
+        \end{bmatrix} \\ \\
+        E(Y) =  \begin{bmatrix}
+            3 \\
+            -2 
+        \end{bmatrix} \\ \\ 
+        E(Y) = a + BE(Z) \\ \\
+        \begin{bmatrix}
+            3 \\
+            -2 
+        \end{bmatrix} = a + B \begin{bmatrix}
+            0 \\
+            0 
+        \end{bmatrix} \\ \\ 
+        \implies a = \begin{bmatrix}
+            3 \\
+            -2 
+        \end{bmatrix}
     \end{split}
 \end{equation}
-Solving the second integral:
+
+Now that we have a, we can find B using the covariance
+
+
 \begin{equation}
     \begin{split}
-        \frac{1}{6} \int _{2}^{3} t^4 e^{-t} \\
-        u=t^4, v'=e^{-t} \\
-        \frac{1}{6} \left(-e^{-t}t^4 - \int -4e^{-t}t^3dt\right) \\
-        \frac{1}{6} \left(-e^{-t}t^4 + 4\left(\left(-t\right)^3e^{-t}-3\left(\left(-t\right)^2e^{-t}-2\left(e^{-t}\left(-t\right)-e^{-t}\right)\right)\right)\right) \\
-        \left[-e^{-t}t^4+4\left(-e^{-t}t^3-3\left(e^{-t}t^2-2\left(-e^{-t}t-e^{-t}\right)\right)\right)\right]^3_2 \\
-         = \frac{1}{6}\left(-\frac{393}{e^3}+\frac{168}{e^2}\right)
-         = \frac{-393+168e}{6e^3}
+        cov(Y) = E((Y - E(Y)) (Y - E(Y))) \\
+        = E((a + BZ - a) (a + BZ - a)') \\
+        = E((BZ) (BZ)') \\
+        = BB'E(ZZ') = BB' \begin{bmatrix}
+            1 & 0 \\
+            0 & 1 
+        \end{bmatrix}\\ \\ \\
+        cov(Z) = E((Z - E(Z)) (Z - E(Z)') \\
+        cov(Z) = E((Z - 0) (Z - 0)') \\
+        = E(ZZ') \\
+        = \begin{bmatrix}
+            1 & 0 \\
+            0 & 1 
+        \end{bmatrix}\\
+        \text{Let B = } 
+            \begin{bmatrix}
+                a & b \\
+                c & d 
+            \end{bmatrix}\\
+        cov(Y) = 
+            \begin{bmatrix}
+                a & b \\
+                c & d 
+            \end{bmatrix} 
+            \begin{bmatrix}
+                a & b \\
+                c & d 
+            \end{bmatrix} ' 
+            \begin{bmatrix}
+                1 & 0 \\
+                0 & 1 
+            \end{bmatrix} \\ \\
+        = 
+            \begin{bmatrix}
+                a & b \\
+                c & d 
+            \end{bmatrix} 
+            \begin{bmatrix}
+                a & b \\
+                c & d 
+            \end{bmatrix} \\ \\
+        = 
+            \begin{bmatrix}
+                a^2 + b^2 & ac + bd \\
+                ca + db & c^2 + d^2 
+            \end{bmatrix} \\ \\
+        = 
+            \begin{bmatrix}
+                5 & 13 \\
+                13 & 41 
+            \end{bmatrix} 
+        \implies a^2 + b^2 = 5\\
+        ac + bd = 13 \\
+        c^2 + d^2 = 41 \\
+        \text{Chosen values that will satisfy these equations are: } \\
+        a = 0, b = \sqrt{5}, c = \frac{6}{\sqrt{5}}, d = \frac{13}{\sqrt{5}} \\
+        \implies B = 
+            \begin{bmatrix}
+                0 & \sqrt{5} \\
+                \frac{6}{\sqrt{5}} & \frac{13}{\sqrt{5}}
+            \end{bmatrix} 
     \end{split}
 \end{equation}
-Adding both together to get the mean
-\begin{equation}
--\frac{-38e+78}{2e^3}+\frac{-393+168e}{6e^3} = \frac{282e-627}{6e^3}
-\end{equation}
-Mean  = $\frac{282e-627}{6e^3} = 1.158$
-
-- Variance = $E[X^2] - (E[X])^2$ \\ \\
-To find the variance, a similar process was taken to find $E[X^2]$ so that the variance could be \\
-calculated. This formula was that of $\int _{-\infty}^{\infty} t^2 \left(\frac{t^2}{2!} e^{-t} + \frac{t^3}{3!} e^{-t}\right)$ and gave the result: \\
-$E[X^2] = \frac{1376e-3387}{6e^3}$. It is also worth noting that $E[X]$ is equivilent to the mean or expected value that was just calculated.
-
-The variance could then be calculated which looked like the following:
-
-\begin{equation}
-    \frac{1376e-3387}{6e^3} - (\frac{282e-627}{6e^3})^2 \\
-    = 1.591
-\end{equation}
-Var($F_X(x)$)= 1.591
-
-\textbf{1c)} 
-
 
 \end{document}
