@@ -1,0 +1,276 @@
+\documentclass[oneside, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[hypertexnames=false]{hyperref} 
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+\urlstyle{same}
+\usepackage{textcomp}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{soul}
+\usepackage{forest}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\usepackage{amssymb}
+
+% Set spacing (i set it to 1.2x)
+\renewcommand{\baselinestretch}{1}
+% Indentation (set this to zero for normal prose)
+\setlength{\parindent}{0em}
+% Line breaking (spacing between paragraphs)
+\setlength{\parskip}{0.5em}
+
+% Use the whole page
+\usepackage{geometry}
+% Extra math glyphs
+\usepackage{amsmath}
+% Proper enumerate spacing
+\usepackage{enumitem}
+% More pleasing screen fonts
+\usepackage{lmodern}
+% Fancy headers
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{algpseudocode}
+% Allows absolute positioning of images
+\usepackage{float}
+% \usepackage[section]{placeins}
+% Set no separation
+\setlist{noitemsep}
+% Set margins to reasonable
+\geometry{margin=2.5cm}
+% Sets graphics path
+\graphicspath{ {./images/} }
+% Sets up fancy headers
+
+\addto\captionsenglish{
+}
+
+\usepackage{listings}
+\usepackage{color}
+
+\pagestyle{plain}
+\NewEnviron{myequation}{%
+\begin{equation}
+\scalebox{1.5}{$\BODY$}
+\end{equation}
+}
+
+\begin{document}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{s4530974 - Homework Assignment 1}
+\rhead{STAT2203}
+
+\newpage
+
+\setcounter{secnumdepth}{-1}
+\section{Question 1}
+
+\textbf{1a)} 
+
+\begin{equation*}
+    \begin{split}
+       \overline{X} \pm z_{1 - \alpha / 2} \frac{\sigma}{\sqrt{n}} \\ 
+       \overline{X} = 0.21 \\
+       \sigma = 0.27 \\
+       n = 15 \\
+       \text{Solve for Alpha} \\
+       0.95 = 1 - \alpha, \alpha = 0.05 \\
+       \text{Solve for Z Score} \\
+       z_{1 - \alpha /2; n - 1} \\
+       z_{1 - 0.05 / 2; 15 - 1} \\
+        z_{0.975; 14} \\
+        = 2.145 \\
+        \text{Sub into the Equation} \\
+       = 0.21 \pm z_{1-0.05/2} \frac{0.27}{\sqrt{15}} \\ 
+       = 0.21 \pm 2.145 \frac{0.27}{\sqrt{15}} \\
+       = 0.21 \pm 0.14953
+    \end{split}
+\end{equation*}
+
+The confidence interval range is between 0.06047 and 0.35953.
+
+\newpage
+\textbf{1b)}
+
+\begin{equation*}
+    \begin{split}
+        (\overline{X} - \overline{Y}) \pm z_{1 - \alpha/2;m+n-2} S_p \sqrt{\frac{1}{m} + \frac{1}{n}} \\ 
+        \overline{X} = 0.21, \overline{Y} = 0.01 \\
+        n = 15, m = 17 \\
+        s_n = 0.27, s_m = 0.24 \\\\
+        \text{Solve for Alpha} \\
+        0.95 = 1 - \alpha, \alpha = 0.05 \\\\
+        \text{Solve for Sp} \\
+        S_p^2 = \frac{(n - 1) s_n^2 + (m - 1)s_m^2}{n + m  - 2} \\\\
+        = \frac{(15 - 1) 0.27^2 + (17- 1)0.24^2}{15 + 17  - 2} \\\\
+        = \frac{(14) 0.27^2 + (16)0.24^2}{30} \\
+        S_p^2 = 0.06474 \\\\
+        \text{Solve for Z Score} \\
+        z_{1 - \alpha/2;m+n-2}, z_{1 - 0.05/2;15+17-2} \\
+        z_{0.975;30} = 2.042\\
+        \text{Subbing everything into the equation we get} \\
+        (0.21 - 0.01) \pm 2.042 \cdot 0.06474 \cdot \sqrt{\frac{1}{17} + \frac{1}{15}} \\
+        = 0.2 \pm 0.04683 \text{ confidence interval}\\
+    \end{split}
+\end{equation*}
+
+\subsection{Finding the P-value and null and alternative hypothesis}
+The null hypothesis states that drug administration and placebo are independent while the alternative hypothesis states that there is association between drug administration and placebo.
+
+Using the Z score, we can calculate the p value to be $0.0412 \leq 0.05$. Therefore we can conclude this as moderate evidence against the enull hypothesis suggesting an association between drug administration and placebo.
+
+
+\newpage
+
+\section{Question 2}
+\textbf{2a)}
+
+\begin{equation*}
+    \begin{split}
+        \text{Calculate Alpha} \\
+        1 - \alpha = 0.99 \\
+        0.01 = \alpha / 2 = 0.005 \\
+        125 - 1 = \text{ degrees of freedom.} \\
+        z_{0.995;124} =  2.6157 \\
+        \overline{X} \pm z_{1-\alpha2}\sqrt{\frac{P(1-P)}{n}}  \\
+        \overline{X} = \frac{69}{125} = 0.552 \\
+        0.552 \pm 2.6157 \sqrt{\frac{0.552(1-0.552)}{125}} \\
+        = 0.552 \pm 0.11634
+    \end{split}
+\end{equation*}
+
+Therefore the confidence interval for the mean percentage for the proportion of Queenslanders that participated in sports during the time period is between 0.43566 and 0.66834.
+
+\textbf{2b)}
+
+\subsection{The null and alternative hypothesis}
+
+The null hypothesis states that there is no association between states and their participation in sports
+
+The alternative hypothesis states that there may be an association between states and their participation in sports
+
+
+\subsection{Calculating the test statistic}
+
+\begin{equation*}
+    \begin{split}
+        P_1 = \frac{69}{125} = 0.552, P_2 = \frac{56}{84} = 0.66 \\
+        n_1 = 125, n_2 = 84 \\
+        P = \frac{69+56}{125+84} = 0.59808 \\ \\
+        \text{Test Statistic } = \frac{P_1 - P_2}{\sqrt{P(1-P)} \sqrt{\frac{1}{n_1}+{\frac{1}{n_2}}}} \\ \\
+        = \frac{0.552 - 0.66}{\sqrt{0.59(1-0.59)} \sqrt{\frac{1}{125}+{\frac{1}{84}}}} \\
+        \text{Test Statistic } = -1.65771
+    \end{split}
+\end{equation*}
+
+P-value = 2 * CDF 
+
+The CDF of the Test Statistic is 0.04868902 so the P-value is 0.09737804. This suggests that there is weak evidence against the null hypothesis suggesting there may not be an association between states and their their participation in sports.
+
+
+\newpage
+\section{Question 3}
+
+\begin{center}
+    Using the supplied contingency table:
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|l|l|l|}
+        \hline
+        \textbf{Pressed for Time} & \textbf{Males} & \textbf{Females} & \textbf{Total} \\ \hline
+        Always/Often              & 36             & 45               & 81             \\ \hline
+        Sometimes                 & 29             & 35               & 64             \\ \hline
+        Rarely/Never              & 36             & 19               & 55             \\ \hline
+        \textbf{Total}            & 101            & 99               & 200            \\ \hline
+        \end{tabular}
+    \end{table}
+
+    Multiplying the totals together:
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|l|l|}
+        \hline
+        \textbf{Pressed for Time} & \textbf{Males} & \textbf{Females} \\ \hline
+        \\[-1em]
+        Always/Often              & $\frac{81*101}{200}$              & $\frac{81*99}{200}$               \\ \hline
+        \\[-1em]
+        Sometimes                 & $\frac{64*101}{200}$             & $\frac{64*99}{200}$               \\ \hline
+        \\[-1em]
+        Rarely/Never              & $\frac{55*101}{200}$             & $\frac{55*99}{200}$               \\ \hline
+        \end{tabular}
+    \end{table}
+    
+    Final table created:
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|l|l|}
+        \hline
+        \textbf{Pressed for Time} & \textbf{Males} & \textbf{Females} \\ \hline
+        \\[-1em]
+        Always/Often              & $\frac{8181}{200}$              & $\frac{8019}{200}$               \\ \hline
+        \\[-1em]
+        Sometimes                 & $\frac{808}{25}$             & $\frac{792}{25}$               \\ \hline
+        \\[-1em]
+        Rarely/Never              & $\frac{1111}{40}$             & $\frac{1089}{40}$               \\ \hline
+        \end{tabular}
+    \end{table}
+\end{center}
+
+\begin{equation*}
+    \begin{split}
+        X^2 = \frac{(36-\frac{8181}{200})^2}{\frac{8181}{200}} + \frac{(45-\frac{8019}{200})^2}{\frac{8019}{200}} + \frac{(29-\frac{808}{25})^2}{\frac{808}{25}} + \frac{(35-\frac{729}{25})^2}{\frac{729}{25}} + \frac{(36-\frac{1111}{40})^2}{\frac{1111}{40}} + \frac{(19-\frac{1089}{40})^2}{\frac{1089}{40}} \\
+    \end{split}
+\end{equation*}
+$$ = \frac{13576409689}{1781821800}$$
+$$ X^2 = 7.61939812893$$
+
+\subsection{The Null and Alternative Hypothesis}
+
+The null hypothesis states that there is no association between Gender and 'Feeling rushed or pressed for time'
+
+The alternative hypothesis states that there is an association between Gender and 'Feeling rushed or pressed for time'
+
+\subsection{Calculating the P-Value}
+
+P-value - $P(X^2_{(r-1)(c-1)} \geq X^2), r = 3, c = 2$
+
+Find $P(X^2_{2} \geq 7.61939812893)$
+
+$P(X^2_2 \geq 7.378) = 0.25$ and $P(X^2_3 \geq 7.9210) = 0.01$
+
+Therefore the P-value for the table is between 0.01 and 0.25. This P-value means that there is moderate evidence against the null hypothesis, suggesting an associaton between Gender and 'Feeling rushed or pressed for time'.
+
+\end{document}
