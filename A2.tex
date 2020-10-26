@@ -108,10 +108,8 @@
        \text{Solve for Alpha} \\
        0.95 = 1 - \alpha, \alpha = 0.05 \\
        \text{Solve for Z Score} \\
-       z_{1 - \alpha /2; n - 1} \\
-       z_{1 - 0.05 / 2; 15 - 1} \\
-        z_{0.975; 14} \\
-        = 2.145 \\
+       z_{1 - \alpha /2; n - 1} = z_{1 - 0.05 / 2; 15 - 1} \\
+        z_{0.975; 14} = 2.145 \\
         \text{Sub into the Equation} \\
        = 0.21 \pm z_{1-0.05/2} \frac{0.27}{\sqrt{15}} \\ 
        = 0.21 \pm 2.145 \frac{0.27}{\sqrt{15}} \\
@@ -121,14 +119,13 @@
 
 The confidence interval range is between 0.06047 and 0.35953.
 
-\newpage
 \textbf{1b)}
 
 \begin{equation*}
     \begin{split}
-        \text{Test statistic } = \frac{\overline{X} - \overline{Y}}{\sqrt{\frac{\sigma_x^2}{n_1} + \frac{\sigma_y^2}{n_2}}} \\
-        \overline{X} = 0.21, \overline{Y} = 0.01, n_1 = 15, n_2 = 17, \sigma_x = 0.27, \sigma_y = 0.24 \\
-        = \frac{0.21 - 0.01}{\sqrt{\frac{0.27^2}{15} + \frac{0.24^2}{17}}} \\ 
+        \text{Test statistic } = \frac{\overline{X} - \overline{Y}}{\sqrt{\frac{\sigma_x^2}{n_1} + \frac{\sigma_y^2}{n_2}}} \\\\
+        \overline{X} = 0.21, \overline{Y} = 0.01, n_1 = 15, n_2 = 17, \sigma_x = 0.27, \sigma_y = 0.24 \\\\
+        = \frac{0.21 - 0.01}{\sqrt{\frac{0.27^2}{15} + \frac{0.24^2}{17}}} \\\\
         \text{Test statistic } = 2.20216
     \end{split}
 \end{equation*}
@@ -136,7 +133,7 @@ The confidence interval range is between 0.06047 and 0.35953.
 \subsection{Finding the P-value and null and alternative hypothesis}
 The null hypothesis states that drug administration and placebo are independent while the alternative hypothesis states that there is association between drug administration and placebo.
 
-Using the test statistic, we can calculate the p value to be $0.01 \leq 0.014 \leq 0.05$. Therefore we can conclude this as moderate evidence against the null hypothesis suggesting an association between drug administration and placebo.
+Using the test statistic, we can calculate the p-value to be $0.01 \leq 0.014 \leq 0.05$. Therefore we can conclude this as moderate evidence against the null hypothesis suggesting an association between drug administration and placebo.
 
 
 \newpage
@@ -259,5 +256,48 @@ Find $P(X^2_{2} \geq 6.7977)$
 $P(X^2_2 \geq 5.991) = 0.05$ and $P(X^2_2 \leq ) = 0.025$
 
 Therefore the P-value for the table is between 0.05 and 0.025. This P-value means that there is moderate evidence against the null hypothesis, suggesting an associaton between Gender and 'Feeling rushed or pressed for time'.
+
+\newpage
+\section{Question 4}
+
+\textbf{4a)}
+
+
+\textbf{4b)}
+
+
+
+\textbf{4c)}
+
+
+
+\section{Question 5}
+
+\subsection{Finding the Expected Value of Y}
+$E[Y]$ of a Normal distribution $ = \frac{a+b}{2}$ and the values of the normal has $ a = 0, b = 1$. Therefore, the expected value of Y is: $\frac{1}{2}$
+
+\subsection{Finding the Variance of Y}
+
+\begin{center}
+    $$\newcommand{\Var}{\mathrm{Var}} \Var(Y) = E[Y^2] - (E[Y])^2$$
+
+    Since we know that $\newcommand{\Var}{\mathrm{Var}} \Var(Y|X) = x^2$ so $E[Y^2|X] = x^2 + x^2 = 2X^2$
+
+    We can then conclude that: $E[Y^2] = E[E[Y|X]] = E[2X^2]$
+
+    $$ \newcommand{\Var}{\mathrm{Var}} \Var(X) = \frac{(b-a)^2}{12} = \frac{1}{12} , E[X] = \frac{1}{2}$$
+
+    Rearranging we get
+    $$ \newcommand{\Var}{\mathrm{Var}} E[V^2] = \Var(V) + (E[U])^2$$
+
+    $$\newcommand{\Var}{\mathrm{Var}} E[2X^2] = 2\left(\Var(X) + E[X]^2\right)$$
+    $$ = 2\left(\frac{1}{12} + \left(\frac{1}{2}\right)^2\right)$$
+    $$ = \frac{2}{3} = E[Y^2]$$
+
+    Sub into the Variance Equation
+    $$ \newcommand{\Var}{\mathrm{Var}} \Var(Y) = E[Y^2] - (E[Y])^2 = \frac{2}{3} - \left(\frac{1}{2}\right)^2$$
+    $$ = \frac{2}{3} - \frac{1}{4} $$
+    $$ \newcommand{\Var}{\mathrm{Var}} \Var(Y) = \frac{5}{12}$$
+\end{center}
 
 \end{document}
