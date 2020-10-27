@@ -123,17 +123,25 @@ The confidence interval range is between 0.06047 and 0.35953.
 
 \begin{equation*}
     \begin{split}
-        \text{Test statistic } = \frac{\overline{X} - \overline{Y}}{\sqrt{\frac{\sigma_x^2}{n_1} + \frac{\sigma_y^2}{n_2}}} \\\\
+        \text{Test statistic } = \frac{\overline{X} - \overline{Y}-(\mu x - \mu y)}{S_p\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} \\
+        S_p^2 = \frac{(n_1-1) \sigma_x^2 + (n_2-1) \sigma_y^2}{n_1+n_2-2} \\
+        H_0 : \mu x = \mu y \text{ against } H_1 : \mu x \neq \mu y \\ \\
         \overline{X} = 0.21, \overline{Y} = 0.01, n_1 = 15, n_2 = 17, \sigma_x = 0.27, \sigma_y = 0.24 \\\\
-        = \frac{0.21 - 0.01}{\sqrt{\frac{0.27^2}{15} + \frac{0.24^2}{17}}} \\\\
-        \text{Test statistic } = 2.20216
+        \text{ Find Sp, since we know that } 
+        S_p^2 = \frac{(15-1)0.27^2 + (17-1)0.24^2}{15+17-2} \\ \\ 
+        S_p = \sqrt{\frac{(15-1)0.27^2 + (17-1)0.24^2}{15+17-2}} = 0.25444\\ \\
+        = \frac{0.21 - 0.01 - 0}{0.25444\sqrt{\frac{1}{15} + \frac{1}{17}}} \\\\
+        \text{Test statistic } = 2.21890
     \end{split}
 \end{equation*}
 
 \subsection{Finding the P-value and null and alternative hypothesis}
-The null hypothesis states that drug administration and placebo are independent while the alternative hypothesis states that there is association between drug administration and placebo.
 
-Using the test statistic, we can calculate the p-value to be $0.01 \leq 0.014 \leq 0.05$. Therefore we can conclude this as moderate evidence against the null hypothesis suggesting an association between drug administration and placebo.
+$H_0:$ Drug administration and placebo are independent
+
+$H_1:$ There is association between drug administration and placebo
+
+Using the test statistic and the letting the degrees of freedom equal $31 (n-1)$, we can calculate the p-value to be $0.01 \leq 0.0339 \leq 0.05$. Therefore we can conclude this as moderate evidence against the null hypothesis suggesting an association between drug administration and placebo.
 
 
 \newpage
@@ -161,9 +169,9 @@ Therefore the confidence interval for the mean percentage for the proportion of 
 
 \subsection{The null and alternative hypothesis}
 
-The null hypothesis states that there is no association between states and their participation in sports
+$H_0:$ There is no association between states and their participation in sports
 
-The alternative hypothesis states that there may be an association between states and their participation in sports
+$H_1:$ There may be an association between states and their participation in sports
 
 
 \subsection{Calculating the test statistic}
@@ -243,9 +251,9 @@ $$ X^2 = 6.7977252271$$
 
 \subsection{The Null and Alternative Hypothesis}
 
-The null hypothesis states that there is no association between Gender and 'Feeling rushed or pressed for time'
+$H_0:$ There is no association between Gender and 'Feeling rushed or pressed for time'
 
-The alternative hypothesis states that there is an association between Gender and 'Feeling rushed or pressed for time'
+$H_1:$ There is an association between Gender and 'Feeling rushed or pressed for time'
 
 \subsection{Calculating the P-Value}
 
